@@ -8,12 +8,98 @@
   - reporting activities
 - scope of the app?
 
+A Todo App is a task management application that helps users organize, track, and manage their daily activities or work tasks efficiently.
+It allows users to create, edit, categorize, prioritize, and monitor the progress of tasks. The goal is to enhance productivity, ensure accountability, and simplify task tracking across personal or organizational contexts.
+
+Activities performed in the Todo App
+
+  A. Busines Activity (BC)
+      - Create, update, and delete tasks.
+
+       - Assign tasks to self or others (in multi-user setups).
+
+       - Set due dates, priorities, and categories.
+
+      - Mark tasks as “In Progress” or “Completed”.
+
+      - Add notes or attachments related to tasks.
+
+      - Receive reminders or notifications for due tasks
+
+  B. Audit Activities (AC)
+    - Log every user action (task creation, modification, completion, or deletion).
+
+    - Track timestamp and user ID for each change.
+
+    - Maintain a version history of task updates.
+
+    - Identify unauthorized access or unusual activity.
+
+    - Allow admins/auditors to view audit trails.
+
+- C. Reporting Activites(RC)
+-  
+     -Generate daily/weekly/monthly task completion reports.
+
+  - Display user productivity metrics (e.g., completion rate, overdue tasks).
+
+    - Visualize data through charts and dashboards.
+
+      - Export reports in PDF/Excel format.
+
+    - Provide filters (by user, project, date range,       status).
+
+Scope of the App
+
+the scope defines what the app will and will not include in its current version.
+
+In Scope
+
+    - User registration & authentication
+
+    - Task creation, categorization, and status tracking
+
+    - Notifications & reminders
+
+     - Basic reporting dashboard
+
+     - Audit trail for accountability
+
+    - Role-based access (user, manager, admin)
+
+Out of Scope
+
+- Integration with third-party tools (Google Calendar, etc.)
+
+- Offline mode or mobile app synchronization
+
+  - Time tracking and billing features
+
 Actors:
 
 - USER
 - MANAGER
 - ADMIN
   
+Activities:
+
+- USER RELATED ACTIVITIES
+  - CREATE USER
+  - UPDATE USER
+  - DELETE USER
+- PROJECT RELATED ACTIVITIES
+  - CREATE PROJECT
+  - UPDATE PROJECT
+  - DELETE PROJECT
+- TASK RELATED ACTIVITIES
+  - CREATE TASK
+  - UPDATE TASK
+  - DELETE TASK
+- COMMON [ENUM]
+  - CREATE
+  - UPDATE
+  - DELETE
+
 ENTITIES:
 
 - TASK
@@ -23,103 +109,45 @@ MODEL:
 
 - USERS [WITH ROLES]
 - ID: [id] .....
-- USERNAME: [username] ...
+- FULLNAME: [fullname] ...
 - EMAIL: [email] ....
 - PASSWORD: [password] ....
   
-- ROLES: [role] ....
+- ROLES: [role: ENUM] ....
   - USER
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-
   - MANAGER
-    - ID: [id] .....
-    - USERNAME: [username] ...
-    - EMAIL: [email] ....
-    - PASSWORD: [password] ....
-    - AGE: [age]
-    - WORK: [work]
-    - EXPERIENCE: [experience]
   - ADMIN
-    - ID: [id] .....
-  - USERNAME: [username] ...
-  - EMAIL: [email] ....
-  - PASSWORD: [password] ....
-  - AGE: [age]
-  - WORK: [work]
-  - EXPERIENCE: [experience]
+- CREATED_AT: [createdAt: datetime]
+- UPDATED_AT: [updatedAt: datetime]
+- IS_ACTIVE: [isActive: boolean]
+  
 - TASK
-  - USERS [WITH ROLES]
-  - ID: [id] .....
-  - USERNAME: [username] ...
-  - EMAIL: [email] ....
-  - PASSWORD: [password] ....
-  - AGE: [age]
-  - WORK: [work]
-  - EXPERIENCE: [experience]
--
-- ROLES: [role] ....
-  - USER
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
-  - MANAGER
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
-  - ADMIN
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
-- PROJECT
-  - - USERS [WITH ROLES]
 - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
-- etc ....
-- ROLES: [role] ....
-  - USER
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
-  - MANAGER
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
-  - ADMIN
-  - - ID: [id] .....
-- USERNAME: [username] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-- AGE: [age]
-- WORK: [work]
-- EXPERIENCE: [experience]
+- DESCRIPTION:[description]
+- PROJECT_ID:[projectId:foreignkey]
+- ASSIGNED_ID:[assignedTo: foreignkey]
+- STATUS: [status:ENUM]
+  - ASSIGNED
+  - PENDING
+  - COMPLETED
+- CREATED_AT: [createdAt: datetime]
+- UPDATED_AT: [updatedAt: datetime]
+- IS_ACTIVE: [isActive: boolean]
+- PROJECT
+  - ID: [id] ..
+  - NAME: [name]
+  - DESCRIPTION: [description]
+  - OWNER_ID: [ownerId:foreignKey]
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
+  - IS_ACTIVE: [isActive:boolean] 
+- AUDIT
+  - ID: [id] .....
+  - ACTOR: [actor:foreignKey]
+  - ACTION: [action:general_activity]
+  - DETAIL: [detail:sub_activity]
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
 
 RELATIONS:
 

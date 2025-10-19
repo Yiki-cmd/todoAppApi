@@ -140,7 +140,7 @@ MODEL:
   - OWNER_ID: [ownerId:foreignKey]
   - CREATED_AT: [createdAt:datetime]
   - UPDATED_AT: [updatedAt:datetime]
-  - IS_ACTIVE: [isActive:boolean] 
+  - IS_ACTIVE: [isActive:boolean]
 - AUDIT
   - ID: [id] .....
   - ACTOR: [actor:foreignKey]

@@ -49,3 +49,10 @@ to be installed
 - uv add passlib
 - uv add passlib[bcrypt]
 - 
+
+
+
+
+[CONTROLLER/ROUTE/ENDPOINT/API]  [SERVICE]    <->    [REPOSITORY]  <-> [DATABASE]
+[databasee agnostic]
+does not care about type of database

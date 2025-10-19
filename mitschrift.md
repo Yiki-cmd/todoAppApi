@@ -56,3 +56,9 @@ to be installed
 [CONTROLLER/ROUTE/ENDPOINT/API]  [SERVICE]    <->    [REPOSITORY]  <-> [DATABASE]
 [databasee agnostic]
 does not care about type of database
+
+
+
+
+
+=> git checkout -b feat/environment - it is completely the copy of the main another branch is making

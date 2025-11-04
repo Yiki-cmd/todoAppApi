@@ -185,6 +185,18 @@ API GROUPS:
     - ADMIN [ALL]
     - MANAGER  [ALL]
     - USER [ALL]
+
+- TASKS [/tasks]
+  - CREATE [POST]
+  - UPDATE [PUT/PATCH]
+  - DELETE [DELETE]
+  - READ [GET]
+- AUDITS [/audits]
+   CREATE [POST]
+  - UPDATE [PUT/PATCH]
+  - DELETE [DELETE]
+  - READ [GET]
+  - 
 - etc .....[tasks, audits]
   
 - BAGROUND TASKS
@@ -202,8 +214,29 @@ API GROUPS:
       - message
       - status
       - etc
-  - etc ...  
+    - GET REQUEST [/user]: [ userGetRequest]
+      - username
+      - email
+    - GET RESPONSE [/user/id]:
+      - username
+      - email
+      - password
 
+    - UPDATE REQUEST [/user/id]
+      - username
+      - email
+      - city
+      - work
+    - UPDATE RESPONSE [/user/id]
+      - message updated successfully
+      - the status is updated
+    - DELETE REQUEST [/user/id]
+      - username
+      - email
+      - passwor
+    - DELETE RESPONSE [/user/id]
+      - message deleted successfully
+      - the status is deleted
 - REPOSITORIES:
 
 - USERS[CLASS]

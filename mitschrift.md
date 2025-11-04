@@ -63,3 +63,20 @@ does not care about type of database
 
 => git checkout -b feat/environment - it is completely the copy of the main another branch is making
   main accepts only gut finshed (xfuf)
+
+
+
+
+
+
+
+
+
+
+docker-compose up
+docker-compose api built
+
+uvicorn app.main:app --reload --env-file .env
+
+
+git checkout -b feat/logger

@@ -80,3 +80,10 @@ uvicorn app.main:app --reload --env-file .env
 
 
 git checkout -b feat/logger
+
+
+
+
+
+
+

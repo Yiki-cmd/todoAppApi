@@ -2,6 +2,7 @@ import csv
 import json
 import logging
 from io import StringIO
+import logging
 
 
 # Custom logging formatters

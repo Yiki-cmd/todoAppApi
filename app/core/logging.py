@@ -34,11 +34,33 @@ class CSVFormatter(logging.Formatter):
         return self.output.getvalue().strip()
 
 
+logger = logging.getLogger(__name__)
+
+
 def get_logger(name: str | None = None) -> logging.Logger:
     logger = logging.getLogger("multi")
 
 
+return logging.logger
+
+while logging.root.handlers:
+    logging.root.removeHandler(logging.root.handlers[0])
+
+default_log_format = "%(asctime)s - %(levelname)s - %(message)s"
+    formatter: logging.Formatter
+    if settings.log_format == "csv":
+        formatter = CSVFormatter(datefmt=settings.log_date_format)
+
+    elif settings.log_format == "json":
+        formatter = JSONFormatter(datefmt=settings.log_date_format)
+
+    else:  # default to text formatting
+        formatter = logging.Formatter(
+            default_log_format, datefmt=settings.log_date_format
+        )
+
 logger.setLevel(logging.DEBUG)
+
 
 # Console handler
 console_handler = logging.StreamHandler()
@@ -56,6 +78,3 @@ file_handler.setFormatter(formatter)
 # Add handlers
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
-
-logger.info("This goes to console only")
-logger.error("This goes to console AND file")

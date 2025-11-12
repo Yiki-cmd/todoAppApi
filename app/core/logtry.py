@@ -50,7 +50,7 @@ def get_logger(name: str | None = None) -> logging.Logger:
     """
     # Remove existing handlers
     for handler in logging.root.handlers[:]:
-        logging.root.removeHandler(handler)
+        logging.root.removedHandler(handler)
 
     # Determine log level (convert to uppercase for logging module)
     log_level = getattr(logging, settings.log_level.upper(), logging.DEBUG)

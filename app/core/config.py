@@ -67,9 +67,9 @@ class Settings(BaseSettings):
     redis_decode_responses: bool = Field(True, alias="REDIS_DECODE_RESPONSES")
 
     # Logger settings
-    log_level: Literal["trace", "debug", "info", "warning", "error", "critical"] = (
-        Field("debug", alias="LOG_LEVEL")
-    )
+    log_level: Literal[
+        "trace", "debug", "info", "warning", "error", "critical"
+    ] = Field("debug", alias="LOG_LEVEL")
     log_format: Literal["text", "json", "csv"] = Field("text", alias="LOG_FORMAT")
     log_file: str = Field("/var/log/app.log", alias="LOG_FILE")
     log_retention: str = Field("7d", alias="LOG_RETENTION")

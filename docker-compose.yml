@@ -7,8 +7,6 @@ services:
     env_file: .env
     ports:
       - "${APP_PORT}:8000"
-    volumes:
-      - ./logs:/var/log
     depends_on:
       mongo:
         condition: service_healthy
@@ -36,20 +34,7 @@ services:
       - mongo-data:/data/db
       - mongo-config:/data/configdb
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mongosh",
-          "--quiet",
-          "--eval",
-          "db.adminCommand('ping')",
-          "--authenticationDatabase",
-          "admin",
-          "-u",
-          "${DATABASE_USER}",
-          "-p",
-          "${DATABASE_PASSWORD}",
-        ]
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')", "--authenticationDatabase", "admin", "-u", "${DATABASE_USER}", "-p", "${DATABASE_PASSWORD}"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -65,15 +50,7 @@ services:
     volumes:
       - redis-data:/data
     healthcheck:
-      test:
-        [
-          "CMD",
-          "redis-cli",
-          "--no-auth-warning",
-          "-a",
-          "${REDIS_PASSWORD}",
-          "ping",
-        ]
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -82,4 +59,4 @@ services:
 volumes:
   mongo-data:
   mongo-config:
-  redis-data:
+  redis-data: 

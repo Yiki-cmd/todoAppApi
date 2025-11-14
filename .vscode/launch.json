@@ -35,7 +35,7 @@
             "request": "launch",
             "command": "docker-compose up -d api mongo redis",
             "cwd": "${workspaceFolder}"
-        },
+        }, 
         {
             "name": "Pre-commit Run All",
             "type": "node-terminal",

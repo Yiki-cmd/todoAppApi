@@ -1,146 +1,74 @@
  Todo App
+ - what is the app? definition and description
+ - who are the users? elaboration
+ - what are the activities performed in the app? bc, ac, rc
+    - business activities [bc]
+    - audit activities [ac]
+    - reporting activities
+ - scope of the app?
 
-- what is the app? definition and description
-- who are the users? elaboration
-- what are the activities performed in the app? bc, ac, rc
-  - business activities [bc]
-  - audit activities [ac]
-  - reporting activities
-- scope of the app?
-
-A Todo App is a task management application that helps users organize, track, and manage their daily activities or work tasks efficiently.
-It allows users to create, edit, categorize, prioritize, and monitor the progress of tasks. The goal is to enhance productivity, ensure accountability, and simplify task tracking across personal or organizational contexts.
-
-Activities performed in the Todo App
-
-  A. Busines Activity (BC)
-      - Create, update, and delete tasks.
-
-       - Assign tasks to self or others (in multi-user setups).
-
-       - Set due dates, priorities, and categories.
-
-      - Mark tasks as “In Progress” or “Completed”.
-
-      - Add notes or attachments related to tasks.
-
-      - Receive reminders or notifications for due tasks
-
-  B. Audit Activities (AC)
-    - Log every user action (task creation, modification, completion, or deletion).
-
-    - Track timestamp and user ID for each change.
-
-    - Maintain a version history of task updates.
-
-    - Identify unauthorized access or unusual activity.
-
-    - Allow admins/auditors to view audit trails.
-
-- C. Reporting Activites(RC)
--  
-     -Generate daily/weekly/monthly task completion reports.
-
-  - Display user productivity metrics (e.g., completion rate, overdue tasks).
-
-    - Visualize data through charts and dashboards.
-
-      - Export reports in PDF/Excel format.
-
-    - Provide filters (by user, project, date range,       status).
-
-Scope of the App
-
-the scope defines what the app will and will not include in its current version.
-
-In Scope
-
-    - User registration & authentication
-
-    - Task creation, categorization, and status tracking
-
-    - Notifications & reminders
-
-     - Basic reporting dashboard
-
-     - Audit trail for accountability
-
-    - Role-based access (user, manager, admin)
-
-Out of Scope
-
-- Integration with third-party tools (Google Calendar, etc.)
-
-- Offline mode or mobile app synchronization
-
-  - Time tracking and billing features
 
 Actors:
+ - USER
+ - MANAGER
+ - ADMIN
 
-- USER
-- MANAGER
-- ADMIN
-  
 Activities:
-
 - USER RELATED ACTIVITIES
-  - CREATE USER
-  - UPDATE USER
-  - DELETE USER
-- PROJECT RELATED ACTIVITIES
-  - CREATE PROJECT
-  - UPDATE PROJECT
-  - DELETE PROJECT
+   - CREATE USER
+   - UPDATE USER
+   - DELETE USER
+-  PROJECT RELATED ACTIVITIES
+   - CREATE PROJECT
+   - UPDATE PROJECT
+   - DELETE PROJECT
 - TASK RELATED ACTIVITIES
-  - CREATE TASK
-  - UPDATE TASK
-  - DELETE TASK
+   - CREATE TASK
+   - UPDATE TASK
+   - DELETE TASK
 - COMMON [ENUM]
   - CREATE
-  - UPDATE
+  - UPDATE 
   - DELETE
 
 ENTITIES:
-
-- TASK
-- PROJECT
+ - TASK
+ - PROJECT
 
 MODEL:
-
-- USERS [WITH ROLES]
-- ID: [id] .....
-- FULLNAME: [fullname] ...
-- EMAIL: [email] ....
-- PASSWORD: [password] ....
-  
-- ROLES: [role: ENUM] ....
-  - USER
-  - MANAGER
-  - ADMIN
-- CREATED_AT: [createdAt: datetime]
-- UPDATED_AT: [updatedAt: datetime]
-- IS_ACTIVE: [isActive: boolean]
-  
-- TASK
-- ID: [id] .....
-- DESCRIPTION:[description]
-- PROJECT_ID:[projectId:foreignkey]
-- ASSIGNED_ID:[assignedTo: foreignkey]
-- STATUS: [status:ENUM]
-  - ASSIGNED
-  - PENDING
-  - COMPLETED
-- CREATED_AT: [createdAt: datetime]
-- UPDATED_AT: [updatedAt: datetime]
-- IS_ACTIVE: [isActive: boolean]
-- PROJECT
-  - ID: [id] ..
+ - USERS [WITH ROLES]
+  - ID: [id] .....
+  - FULL_NAME: [fullName] ...
+  - EMAIL: [email] ....
+  - PASSWORD: [password] ....
+  - etc ....
+  - ROLES: [role:ENUM] ....
+    - USER
+    - MANAGER
+    - ADMIN
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
+  - IS_ACTIVE: [isActive:boolean] 
+ - TASK
+  - ID: [id] .....
+  - DESCRIPTION: [description]
+  - PROJECT_ID: [projectId:foreignKey]
+  - ASSIGNED_TO: [assignedTo:foreignKey]
+  - STATUS: [status:ENUM]
+    - ASSIGNED
+    - PENDING
+    - COMPLETED 
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
+  - IS_ACTIVE: [isActive:boolean] 
+ - PROJECT
+  - ID: [id] .....
   - NAME: [name]
   - DESCRIPTION: [description]
   - OWNER_ID: [ownerId:foreignKey]
   - CREATED_AT: [createdAt:datetime]
   - UPDATED_AT: [updatedAt:datetime]
-  - IS_ACTIVE: [isActive:boolean]
+  - IS_ACTIVE: [isActive:boolean] 
 - AUDIT
   - ID: [id] .....
   - ACTOR: [actor:foreignKey]
@@ -150,142 +78,98 @@ MODEL:
   - UPDATED_AT: [updatedAt:datetime]
 
 RELATIONS:
-
-- PROJECTS [MANY-ONE] MANAGER
+- PROJECTS [MANY-ONE] MANAGER 
 - TASK [MANY-ONE] MANAGER
 - TASK [MANY-ONE] PROJECTS
 - TASK [MANY-ONE] USER
 
 API GROUPS:
-
 - USER [roles => user, manager, admin] [PROTECT] [/users]
-  - CREATE [POST] [/users]
-    - ADMIN
-  - UPDATE [PUT/PATCH] [/users/<id>]
-    - ADMIN
-    - OWN USER
-  - DELETE [DELETE] [/users/<id>]
-    - ADMIN
-    - OWN USER
-  - READ  [GET] [/users/<id>]
-    - ADMIN
-    - OWN USER
+   - CREATE [POST] [/users]
+      - ADMIN 
+   - UPDATE [PUT/PATCH] [/users/<id>]
+      - ADMIN
+      - OWN USER
+   - DELETE [DELETE] [/users/<id>]
+      - ADMIN
+      - OWN USER
+   - READ  [GET] [/users/<id>]
+      - ADMIN
+      - OWN USER
 
 - PROJECT  [/project]
-  - CREATE [POST]
-    - ADMIN [ FOR ALL]
-    - MANAGER  [ OWN PROJECTS]
-  - UPDATE [PUT/PATCH]
-    - ADMIN [ FOR ALL]
-    - MANAGER  [ OWN PROJECTS]
-  - DELETE [DELETE]
-    - ADMIN [ FOR ALL]
-    - MANAGER  [ OWN PROJECTS]  
-  - READ [GET]
-    - ADMIN [ALL]
-    - MANAGER  [ALL]
-    - USER [ALL]
+   - CREATE [POST] 
+      - ADMIN [ FOR ALL]
+      - MANAGER  [ OWN PROJECTS]
+   - UPDATE [PUT/PATCH]
+      - ADMIN [ FOR ALL]
+      - MANAGER  [ OWN PROJECTS]
+   - DELETE [DELETE]
+      - ADMIN [ FOR ALL]
+      - MANAGER  [ OWN PROJECTS]  
+   - READ [GET]
+      - ADMIN [ALL]
+      - MANAGER  [ALL]
+      - USER [ALL]
+- etc ..... [tasks, audits]
 
-- TASKS [/tasks]
-  - CREATE [POST]
-  - UPDATE [PUT/PATCH]
-  - DELETE [DELETE]
-  - READ [GET]
-- AUDITS [/audits]
-   CREATE [POST]
-  - UPDATE [PUT/PATCH]
-  - DELETE [DELETE]
-  - READ [GET]
-  - 
-- etc .....[tasks, audits]
-  
-- BAGROUND TASKS
+- BACKGROUND TASKS
   - Audit background tasks
-  
+ 
 - SCHEMAS [RESPONSE AND REQUEST]
   
   - USER [/user]
-    - POST REQUEST [/user]: [ UserPostRequest] .....
-      - username
-      - email
-      - password
-      - etc
-    - POST RESPONSE [/user]: [ UserPostResponse] .....
-      - message
-      - status
-      - etc
-    - GET REQUEST [/user]: [ userGetRequest]
-      - username
-      - email
-    - GET RESPONSE [/user/id]:
-      - username
-      - email
-      - password
+     - POST REQUEST [/user]: [ UserPostRequest] .....
+       - username
+       - email 
+       - password
+       - etc
+     - POST RESPONSE [/user]: [ UserPostResponse] .....
+       -  message
+       -  status
+       -  etc
+  - etc ...  
 
-    - UPDATE REQUEST [/user/id]
-      - username
-      - email
-      - city
-      - work
-    - UPDATE RESPONSE [/user/id]
-      - message updated successfully
-      - the status is updated
-    - DELETE REQUEST [/user/id]
-      - username
-      - email
-      - passwor
-    - DELETE RESPONSE [/user/id]
-      - message deleted successfully
-      - the status is deleted
 - REPOSITORIES:
-
-- USERS[CLASS]
-        -etc
-        -
-
-  -
-
-  - PROJECTS[CLASS]
-    - etc
-    -
-    -
-  -
-    - TASKS[CLASS]
-  - etc
-  -
-  -
-  - AUDIT[CLASS]
-- etc
+   - USERS [CLASS]
+     -
+     -  
+   - PROJECTS [CLASS]
+     -
+     -  
+   - TASKS [CLASS]
+     -
+     -  
+   - AUDIT [CLASS]
+     -
+     -  
 
 - SERVICES:
-  - ORM SERVICE [ super class]
-    - USER [ sub class]
-    - projects [sub class]
-    - etc..
-
+   - ORM SERVICE [super class]
+     -  USER [sub class]
+     -  projects [sub class]
+     - etc ...
+     - 
 - DEPENDENCIES:
   - AUTHENTICATION
   - AUTHORIZATION
-  - etc
 
 - TESTS:
   - INTEGRATION
-  - UNIT TEST [ IN THE FEATURE]
-  - etc
+  - UNIT TEST [ IN THE FEATURE] 
+   ....coming soon..........
 
 - Security
   - AUTHENTICATION
     - JWT [JSON WEB TOKEN]
-  - AUTHORIZATION
-    - RBAC [ROLE BASED ACCESS CONTROL]
+  - AUTHORIZATION   
+    - RBAC [ROLE BASED ACCESS CONTROL] 
   - CACHE
     - REDIS SESSION STORE
 
 - ENVIRONMENT
-  - APP VARIABLES
-
-- # Application settings
-
+  - APP VARIABLES 
+   - # Application settings
       APP_NAME=Books Catalog API
       APP_VERSION=0.1.0
       APP_DESCRIPTION=A simple FastAPI application
@@ -298,14 +182,12 @@ API GROUPS:
       APP_SCALARA_URL=/scalar
       APP_OPENAPI_URL=/openapi.json
 
-- # Security settings
-
+   - # Security settings
       SECURITY_SECRET_KEY=your_super_secret_key_here
       SECURITY_JWT_ALGORITHM=HS256
       SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES=30
 
-- # database settings
-
+   - # database settings
       DATABASE_HOST=localhost
       DATABASE_PORT=27019
       DATABASE_NAME=mydb
@@ -313,8 +195,7 @@ API GROUPS:
       DATABASE_PASSWORD=example
       DATABASE_AUTH_SOURCE=admin
 
-- # logger settings
-
+   - # logger settings
       LOG_LEVEL=debug
       LOG_FORMAT=text #json #csv
       LOG_FILE=/var/log/app.log
@@ -323,9 +204,8 @@ API GROUPS:
       LOG_HANDLERS=console,file
       LOG_DATE_FORMAT=%Y-%m-%d %H:%M:%S
       LOG_HANDLERS=console,file
-
-- # Redis settings
-
+      
+   - # Redis settings
       REDIS_HOST=localhost
       REDIS_PORT=6379
       REDIS_PASSWORD=???
@@ -338,15 +218,14 @@ API GROUPS:
       REDIS_CONNECTION_POOL_MAX_CONNECTIONS=50
       REDIS_DECODE_RESPONSES=True
 
-- PLATFORM [DOCKER]
-- ORCHESTRATION: DOCKER COMPOSE
-- CONTAINERS
-  - Python [LINUX CONTAINER FOR APP RUNNING]
-  - Mongodb [ DOCUMENT BASED DATABASE]
-  - Redis [ON MEMORY DATABASE]
--  
-- LIBRARIES:
+  - PLATFORM [DOCKER]
+  - ORCHESTRATION: DOCKER COMPOSE
+  - CONTAINERS
+      - Python [LINUX CONTAINER FOR APP RUNNING]
+      - Mongodb [ DOCUMENT BASED DATABASE]
+      - Redis [ON MEMORY DATABASE]
 
+-  LIBRARIES:
 ```
    fastapi 
    uvicorn 
@@ -366,8 +245,7 @@ API GROUPS:
    mypy
 ```
 
-- SCAFFOLDINGu
-
+- SCAFFOLDING
 ```
 todoApp
 ├─ .vscode/ 

@@ -1,6 +1,8 @@
 import uvicorn
-from app.core.config import settings
 from fastapi import FastAPI
+
+from app.core.config import settings
+from app.core.logging import get_logger
 
 app = FastAPI(
     title=settings.app_name,
@@ -10,7 +12,9 @@ app = FastAPI(
 )
 
 # Log configuration source on startup
-print(f"🔧 Configuration: {settings.config_source}")
+
+logger = get_logger(__name__)
+logger.info(f"🔧 Configuration: {settings.config_source}")
 
 
 @app.get("/health")

@@ -21,14 +21,3 @@ class BaseDoc(Document):
         changed_at: datetime = Field(default_factory=utcnow, alias="changedAt")
         sharding_in: str = Field(default=data, alias="sharding_in")
         # Add common options here (e.g., timeseries, sharding) if needed
-
-
-def get_settings():
-    global _settings_instance
-    if _settings_instance is None:
-        _settings_instance = Settings()  # could load from file/env
-    return _settings_instance
-
-
-settings = get_settings()
-print(settings.to_dict())

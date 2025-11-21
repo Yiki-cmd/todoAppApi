@@ -1,6 +1,7 @@
 from typing import ClassVar
 
 from beanie import Link
+from pydantic import Field
 from pymongo import ASCENDING, IndexModel
 
 from app.models.base import BaseDoc

@@ -26,5 +26,9 @@ async def beanie_lifespan() -> AsyncIterator[None]:
     initializes **Beanie** with your Document models, then closes on shutdown.
     """
     # set up client / beanie initialization here
+    client = AsyncIOMotorClient(settings.mongo_uri)
+    await _wait_for_mongo(client)
+
     yield
     # cleanup / close client here
+    client.close()

@@ -13,5 +13,5 @@ class Project(BaseDoc):
     message: str = Field(default=str, alias="message")
 
     class Settings:
-         name: ClassVar[str] = "projet"
-        indexes: ClassVar[list[IndexModel]] = [IndexModel([("createdAt", ASCENDING)])]
+        name: ClassVar[str] = "projet"
+        index: ClassVar[list[IndexModel]] = [IndexModel([("createdAt", ASCENDING)])]
